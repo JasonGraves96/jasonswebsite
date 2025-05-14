@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jason-graves.net</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>
+      <img class="gif-img" src="images/head_construction.gif" alt="Under Construction">
+      <img class="gif-img" src="images/jg title.gif" alt="Title GIF">
+      <img class="gif-img" src="images/g1.gif" alt="Decorative GIF">
+    </h1>
+  </header>
+  <nav>
+    <a href="default.html" target="contentFrame">Home</a>
+    <a href="aboutme.html" target="contentFrame">About Me</a>
+    <a href="myskills.html" target="contentFrame">Skills</a>
+    <a href="youtube.html" target="contentFrame">YouTube</a>
+    <a href="github.html" target="contentFrame">GitHub</a>
+    <a href="resume.html" target="contentFrame">Resume</a>
+  </nav>
+
+  <div class="tv-container">
+    <img class="tv-frame" src="images/tv.png" alt="Retro TV">
+    <iframe
+      id="ytplayer"
+      class="content-frame"
+      name="contentFrame"
+      src="default.html"
+      frameborder="0"
+      allow="autoplay; encrypted-media">
+    </iframe>
+    <img id="staticOverlay" class="static-overlay" src="images/static.jpeg" alt="Static">
+
+    <div class="eject-menu" id="ejectMenu">
+      <div class="eject-title">Pick A Video!</div>
+      <img class="menu-gw" data-video="y-8XNtI8e5M" src="images/gw VHS.png" alt="GW">
+      <img class="menu-tg16" data-video="5DAmGHJxsdY" src="images/TG 16 VHS.png" alt="TG16">
+      <img class="menu-ct" data-video="fPEZJY-SPl8" src="images/CT VHS.png" alt="CT">
+      <img class="menu-gs" data-video="t9mjtTQL-9w" src="images/GS VHS.png" alt="GS">
+      <img class="menu-3do" data-video="iPG-DUMGMfA" src="images/3do VHS.png" alt="3do">
+    </div>
+
+    <!-- TV buttons -->
+    <button class="tv-btn headphone-btn"></button>
+    <button class="tv-btn vhold-btn"></button>
+    <button class="tv-btn sharp-btn"></button>
+    <button class="tv-btn contrast-btn"></button>
+    <button class="tv-btn bright-btn"></button>
+    <button class="tv-btn tint-btn"></button>
+    <button class="tv-btn colour-btn"></button>
+    <button class="tv-btn eject-btn" id="ejectBtn"></button>
+    <button class="tv-btn eject-btn" id="ejectBtn2"></button>
+    <button class="tv-btn reset-btn"></button>
+    <button class="tv-btn rewind-btn"></button>
+    <button class="tv-btn ff-btn"></button>
+    <button class="tv-btn play-btn"></button>
+    <button class="tv-btn stop-btn"></button>
+    <button class="tv-btn still-btn"></button>
+    <button class="tv-btn slow-btn"></button>
+    <button class="tv-btn volume-btn"></button>
+    <button class="tv-btn power-btn"></button>
+  </div>
+
+  <footer><marquee>The OFFICIAL website of Jason Graves (not the composer)</marquee></footer>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="script.js"></script>
+</body>
+</html>

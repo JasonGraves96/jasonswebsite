@@ -1,0 +1,52 @@
+
+<!-- notreal.html: About Me Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Jason Graves</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #008080, #FF00FF);
+            color: #000;
+            font-family: "Comic Sans MS", "Impact", sans-serif;
+            text-align: left;
+            padding: 20px;
+        }
+        header, footer { background-color: #008080; text-align: center; padding: 15px; }
+        h1, h2 { text-align: center; }
+        h2 { margin-top: 20px; }
+        p { margin: 10px 0; }
+        ul { margin: 10px 0 20px 20px; }
+        li { margin: 6px 0; }
+        a { color: #000; text-decoration: underline; }
+        footer marquee { color: #FFF; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>About Jason Graves</h1>
+    </header>
+    <main>
+        <h2>Who am I?</h2>
+        <p>Hey there! I'm <strong>Jason Graves</strong> (not the composer) — a soon-to-be Software Development graduate who fell down the retro gaming rabbit hole.</p>
+        <h2>My Background</h2>
+        <ul>
+            <li><strong>Education:</strong> BAS in Software Development.</li>
+            <li><strong>Experience:</strong> Subway manager turned plumbing apprentice turned entry-level software developer.</li>
+            <li><strong>Skills:</strong> Java, JavaScript, SQL, Firebase, React Native, video/photo editing (Premiere Pro, Photoshop).</li>
+            <li><strong>YouTube:</strong> Retro gaming channel with ~20k subscribers since 2015.</li>
+            <li><strong>Favorites:</strong> TurboGrafx-16 oddities, SNES RPGs, wildcard consoles like the 3DO.</li>
+        </ul>
+        <h2>Behind the Scenes</h2>
+        <p>I geek out on old-school tech, animation GIFs, neon web aesthetics, and breaking down the weirdest games in history. I’m also navigating the wild world of job hunts and career pivots—so if you’ve got advice, hit me up!</p>
+        <h2>Stay in Touch</h2>
+        <p>Check out my <a href="https://www.youtube.com/" target="_blank">YouTube channel</a>, connect on <a href="https://github.com/" target="_blank">GitHub</a>, or drop me a line!</p>
+    </main>
+    <footer>
+        <marquee>Thanks for stopping by my corner of the web!</marquee>
+    </footer>
+</body>
+</html>

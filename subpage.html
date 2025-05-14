@@ -1,0 +1,62 @@
+
+<!-- subpage.html: Drawing Canvas -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw on Jason's Picture</title>
+    <style>
+        body { background: #00FF00; text-align: center; font-family: "Comic Sans MS", sans-serif; }
+        canvas { border: 4px groove #0000FF; margin-top: 20px; }
+        #toolbar { margin-top: 10px; }
+        button { margin: 0 5px; padding: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Draw on Jason's Picture</h2>
+    <!-- Hidden image to load source -->
+    <img id="sourceImg" src="images/me.jpeg" alt="Me" style="display:none;" onload="initCanvas()">
+    <canvas id="drawCanvas"></canvas>
+
+    <div id="toolbar">
+        <button onclick="setColor('black')">Black</button>
+        <button onclick="setColor('red')">Red</button>
+        <button onclick="setColor('blue')">Blue</button>
+        <button onclick="setColor('green')">Green</button>
+        <button onclick="clearCanvas()">Clear</button>
+    </div>
+
+    <script>
+        let canvas, ctx, drawing = false, currentColor = 'black';
+        function initCanvas() {
+            const img = document.getElementById('sourceImg');
+            canvas = document.getElementById('drawCanvas');
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            canvas.addEventListener('mousedown', () => drawing = true);
+            canvas.addEventListener('mouseup', () => drawing = false);
+            canvas.addEventListener('mouseout', () => drawing = false);
+            canvas.addEventListener('mousemove', draw);
+        }
+        function draw(e) {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ctx.fillStyle = currentColor;
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        function setColor(col) { currentColor = col; }
+        function clearCanvas() {
+            const img = document.getElementById('sourceImg');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        }
+    </script>
+</body>
+</html>

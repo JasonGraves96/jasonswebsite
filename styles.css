@@ -1,0 +1,141 @@
+body {
+  background: linear-gradient(135deg, #008080, #FF00FF);
+  color: #000;
+  font-family: "Comic Sans MS", "Impact", sans-serif;
+  text-align: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  transition: background 0.1s linear;
+}
+header {
+  background-color: #00FFDE;
+  padding: 0.1em;
+  border-bottom: 2px ridge #0000FF;
+}
+nav a {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  background-color: #FFFF00;
+  color: #000;
+  text-decoration: none;
+  border: 2px outset #000;
+  font-weight: bold;
+}
+nav a:hover { background-color: #FFA500; }
+.gif-img { height: auto; }
+
+.tv-container {
+  position: relative;
+  width: 80%;
+  max-width: 850px;
+  margin: 20px auto;
+}
+.tv-frame {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+.content-frame {
+  position: absolute;
+  top: 10%; left: 14%;
+  width: 49.8%; height: 65%;
+  border: 3px groove #0000FF;
+  background: #00FFDE;
+  transition: filter 0.5s ease;
+  z-index: 2;
+}
+.content-frame.grayscale { filter: grayscale(100%); }
+.content-frame.tint      { filter: hue-rotate(90deg) saturate(200%); }
+.content-frame.bright    { filter: brightness(150%); }
+.content-frame.contrast  { filter: contrast(200%); }
+.content-frame.sharp     { filter: url(#sharpen); }
+.content-frame.vhold {
+  animation: vhold-shake 0.2s infinite;
+}
+@keyframes vhold-shake {
+  0%,100% { transform: translateY(0); }
+  25% { transform: translateY(-2px); }
+  50% { transform: translateY(2px); }
+  75% { transform: translateY(-1px); }
+}
+.eject-menu {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: none;
+  z-index: 3;
+  background: rgba(0,0,0,0.7);
+  border: 4px solid #00FFDE;
+  box-shadow: 0 0 10px #0000FF;
+  backdrop-filter: blur(2px);
+}
+.eject-menu img {
+  position: absolute;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease;
+}
+.eject-menu img:hover { transform: scale(1.1); z-index: 4; }
+.eject-menu .eject-title {
+  position: absolute;
+  top: 1%; left: 50%; transform: translateX(-50%);
+  font-family: Impact, sans-serif;
+  font-size: 3.5em;
+  color: #FFF;
+  text-shadow: 2px 2px #000;
+  z-index: 4;
+}
+.menu-gw   { top:-8%; left:-4%; width:50%; }
+.menu-tg16 { top:-8%; right:-4%; width:50%; }
+.menu-ct   { top:19%; left:23%; width:50%; }
+.menu-gs   { bottom:-8%; left:-4%; width:50%; }
+.menu-3do  { bottom:-8%; right:-4%; width:50%; }
+.tv-btn {
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+  z-index: 4;
+}
+.tv-btn:hover { box-shadow: 0 0 10px 3px rgba(255,165,0,0.7); }
+.power-btn     { top:83%; left:17.5%; width:3%; height:5%; }
+.headphone-btn { top:89%; left:13%; width:2%; height:3%; }
+.vhold-btn     { top:86.2%; left:42%; width:2.5%; height:4%; }
+.sharp-btn     { top:86.2%; left:46%; width:2.5%; height:4%; }
+.contrast-btn  { top:86.2%; left:50%; width:2.5%; height:4%; }
+.bright-btn    { top:86.2%; left:54%; width:2.5%; height:4%; }
+.tint-btn      { top:86.2%; left:58%; width:2.5%; height:4%; }
+.colour-btn    { top:86.2%; left:62%; width:2.5%; height:4%; }
+.eject-btn     { top:10%; left:71.6%; width:3%; height:3%; }
+/* override position of the second eject button */
+#ejectBtn2 {
+  /* same positioning properties as .eject-btn, just with new values */
+  position: absolute;      /* already inherited from .tv-btn/.eject-btn */
+  top: 5%;                /* tweak this */
+  left: 84%;               /* tweak this */
+  width: 6.75%;
+  height: 80%;
+  z-index: 4;
+}
+
+.reset-btn     { top:25.5%; left:71.2%; width:2.5%; height:3%; }
+.rewind-btn    { top:34%; left:70.5%; width:4.3%; height:3%; }
+.ff-btn        { top:34%; left:75.7%; width:4.3%; height:3%; }
+.play-btn      { top:41.5%; left:70.5%; width:9.5%; height:6%; }
+.stop-btn      { top:50.5%; left:70.5%; width:9.5%; height:6%; }
+.still-btn     { top:60%; left:70.5%; width:4.3%; height:3%; }
+.slow-btn      { top:60%; left:75.5%; width:4.3%; height:3%; }
+.volume-btn    { top:70%; left:70%; width:10%; height:10%; }
+.static-overlay {
+  position: absolute;
+  top: 10.5%; left: 14.3%;
+  width: 49.8%; height: 65%;
+  z-index: 3;
+  display: none;
+}
+footer { margin-top:20px; font-size:24px; }
