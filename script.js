@@ -5,7 +5,7 @@ let slowMode = false;
 let reverseMode = false;
 let fastMode = false;
 let reverseInterval = null;
-const defaultVideoId = 'hLdK_25_O7I';
+const defaultVideoId = 'jBklcmh2JfM';
 
 // Called by YouTube API to signal readiness
 function onYouTubeIframeAPIReady() {
