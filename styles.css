@@ -10,17 +10,28 @@ body {
 }
 header {
   background-color: #00FFDE;
-  padding: 0.1em;
+  padding: 0.05em;
   border-bottom: 2px ridge #0000FF;
+}
+header h1 {
+  margin: 0;
+  padding: 0;
+}
+.gif-img {
+  max-height: 80px;
+  height: auto;
 }
 nav a {
   display: inline-block;
-  padding: 5px;
-  margin: 5px;
+  padding: 12px;
+  top: 10px;
+	position: relative; /* enable top */
+  top: 9px;    
+  margin: 6px;
   background-color: #FFFF00;
   color: #000;
   text-decoration: none;
-  border: 2px outset #000;
+  border: 5px outset #000;
   font-weight: bold;
 }
 nav a:hover { background-color: #FFA500; }
@@ -31,6 +42,12 @@ nav a:hover { background-color: #FFA500; }
   width: 80%;
   max-width: 850px;
   margin: 20px auto;
+}
+.tv-container.menu-open .tv-btn {
+  pointer-events: none;
+}
+.tv-container.menu-open .eject-btn {
+  pointer-events: auto;
 }
 .tv-frame {
   display: block;
@@ -112,17 +129,14 @@ nav a:hover { background-color: #FFA500; }
 .tint-btn      { top:86.2%; left:58%; width:2.5%; height:4%; }
 .colour-btn    { top:86.2%; left:62%; width:2.5%; height:4%; }
 .eject-btn     { top:10%; left:71.6%; width:3%; height:3%; }
-/* override position of the second eject button */
 #ejectBtn2 {
-  /* same positioning properties as .eject-btn, just with new values */
-  position: absolute;      /* already inherited from .tv-btn/.eject-btn */
-  top: 5%;                /* tweak this */
-  left: 84%;               /* tweak this */
+  position: absolute;
+  top: 5%;
+  left: 84%;
   width: 6.75%;
   height: 80%;
   z-index: 4;
 }
-
 .reset-btn     { top:25.5%; left:71.2%; width:2.5%; height:3%; }
 .rewind-btn    { top:34%; left:70.5%; width:4.3%; height:3%; }
 .ff-btn        { top:34%; left:75.7%; width:4.3%; height:3%; }

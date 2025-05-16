@@ -5,6 +5,7 @@ let slowMode = false;
 let reverseMode = false;
 let fastMode = false;
 let reverseInterval = null;
+const defaultVideoId = 'hLdK_25_O7I';
 
 // Called by YouTube API to signal readiness
 function onYouTubeIframeAPIReady() {
@@ -19,6 +20,11 @@ function initPlayer(id) {
   });
 }
 
+// Check if eject menu is open
+function isMenuOpen() {
+  return document.getElementById('ejectMenu').style.display === 'block';
+}
+
 // Load or switch to a new video
 function loadVideo(id) {
   if (!apiReady) return;
@@ -31,8 +37,9 @@ function loadVideo(id) {
   } else {
     player.loadVideoById(id);
   }
-  // Hide eject menu after selecting
-  document.getElementById('ejectMenu').style.display = 'none';
+  const menu = document.getElementById('ejectMenu');
+  menu.style.display = 'none';
+  document.querySelector('.tv-container').classList.remove('menu-open');
 }
 
 // Show/hide static overlay
@@ -54,6 +61,7 @@ function clearReverse() {
 
 // Power button: stop playback and toggle static
 document.querySelector('.power-btn').onclick = () => {
+  if (isMenuOpen()) return;
   if (player) player.stopVideo();
   clearReverse();
   staticShown ? hideStatic() : showStatic();
@@ -61,10 +69,13 @@ document.querySelector('.power-btn').onclick = () => {
 };
 
 // Toggle eject menu visibility on both buttons
-['ejectBtn', 'ejectBtn2'].forEach(id => {
+['ejectBtn','ejectBtn2'].forEach(id => {
   document.getElementById(id).onclick = () => {
     const menu = document.getElementById('ejectMenu');
-    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    const container = document.querySelector('.tv-container');
+    const open = menu.style.display === 'block';
+    menu.style.display = open ? 'none' : 'block';
+    container.classList.toggle('menu-open', !open);
   };
 });
 
@@ -75,21 +86,28 @@ document.querySelectorAll('#ejectMenu img').forEach(img => {
 
 // Playback control buttons
 document.querySelector('.play-btn').onclick = () => {
+  if (isMenuOpen()) return;
   clearReverse();
-  player && player.playVideo();
+  if (!player) {
+    loadVideo(defaultVideoId);
+  } else {
+    player.playVideo();
+  }
 };
 document.querySelector('.stop-btn').onclick = () => {
+  if (isMenuOpen()) return;
   clearReverse();
   player && player.stopVideo();
 };
 // Pause via still button
 document.querySelector('.still-btn').onclick = () => {
+  if (isMenuOpen()) return;
   clearReverse();
   player && player.pauseVideo();
 };
 // Slow mode toggle via slow button
 document.querySelector('.slow-btn').onclick = () => {
-  if (!player) return;
+  if (isMenuOpen() || !player) return;
   clearReverse();
   slowMode = !slowMode;
   if (slowMode) {
@@ -101,8 +119,7 @@ document.querySelector('.slow-btn').onclick = () => {
 };
 // Reverse mode toggle via rewind button
 document.querySelector('.rewind-btn').onclick = () => {
-  if (!player) return;
-  // exit other modes
+  if (isMenuOpen() || !player) return;
   slowMode = false;
   fastMode = false;
   player.setPlaybackRate(1);
@@ -118,8 +135,7 @@ document.querySelector('.rewind-btn').onclick = () => {
 };
 // Fast mode toggle via fast-forward button
 document.querySelector('.ff-btn').onclick = () => {
-  if (!player) return;
-  // exit other modes
+  if (isMenuOpen() || !player) return;
   clearReverse();
   slowMode = false;
   if (!fastMode) {
@@ -132,20 +148,28 @@ document.querySelector('.ff-btn').onclick = () => {
 };
 // Mute toggle via volume button
 document.querySelector('.volume-btn').onclick = () => {
+  if (isMenuOpen()) return;
   clearReverse();
   if (player) player.isMuted() ? player.unMute() : player.mute();
 };
 
+// Reset button: reload entire page
+document.querySelector('.reset-btn').onclick = () => {
+  if (isMenuOpen()) return;
+  location.reload();
+};
+
 // Filter toggle buttons
 const iframeEl = document.querySelector('.content-frame');
-document.querySelector('.colour-btn').onclick   = () => iframeEl.classList.toggle('grayscale');
-document.querySelector('.tint-btn').onclick     = () => iframeEl.classList.toggle('tint');
-document.querySelector('.bright-btn').onclick   = () => iframeEl.classList.toggle('bright');
-document.querySelector('.contrast-btn').onclick = () => iframeEl.classList.toggle('contrast');
-document.querySelector('.sharp-btn').onclick    = () => iframeEl.classList.toggle('sharp');
-document.querySelector('.vhold-btn').onclick    = () => iframeEl.classList.toggle('vhold');
+['colour','tint','bright','contrast','sharp','vhold'].forEach(cls => {
+  document.querySelector(`.${cls}-btn`).onclick = () => {
+    if (isMenuOpen()) return;
+    iframeEl.classList.toggle(cls === 'colour' ? 'grayscale' : cls);
+  };
+});
 
 // Dynamic background gradient on mouse move
 document.onmousemove = e => {
+  if (isMenuOpen()) return;
   document.body.style.background = `linear-gradient(${(e.clientX/window.innerWidth)*360}deg, #008080, #FF00FF)`;
 };
