@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guestbook</title>
+  <style>
+    body {
+      background: #111;
+      color: rgb(255, 230, 0);
+      font-family: "Courier New", monospace;
+      padding: 2em;
+      text-align: center;
+    }
+    #entries {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 1em auto;
+      text-align: left;
+    }
+    #entries li {
+      background: #222;
+      border: 1px solid rgb(255, 255, 255);
+      padding: 0.5em;
+      margin-bottom: 0.5em;
+    }
+    form {
+      background: #222;
+      border: 2px solid rgb(255, 255, 255);
+      padding: 1em;
+      max-width: 400px;
+      margin: 1em auto;
+    }
+    input, textarea {
+      width: 80%;
+      background: #111;
+      color: #0f0;
+      border: 1px solid rgb(255, 255, 255);
+      padding: 0.5em;
+      margin-bottom: 1em;
+      font-family: inherit;
+    }
+    button {
+      background: rgb(255, 0, 0);
+      color: #111;
+      border: none;
+      padding: 0.5em 1em;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #status {
+      margin-top: 1em;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Leave a message?</h1>
+  <ul id="entries"></ul>
+  <form id="guestbook-form">
+    <input type="text" name="name" placeholder="Name" />
+    <textarea name="message" rows="2" placeholder="Your message here..."></textarea>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="status"></div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+  <script>
+    // Yeah I'm deploying with my raw api keys. What are you going to do? Hack me?
+   const firebaseConfig = {
+  apiKey: "AIzaSyB66QGd5d6zi5zm1wkdz1oUEc4PmX7eJ10",
+  authDomain: "guest-book-backend.firebaseapp.com",
+  databaseURL: "https://guest-book-backend-default-rtdb.firebaseio.com",
+  projectId: "guest-book-backend",
+  storageBucket: "guest-book-backend.firebasestorage.app",
+  messagingSenderId: "963484703994",
+  appId: "1:963484703994:web:4c54c3ff872da33f0cbd43"
+};
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database().ref('guestbook');
+
+    const entriesList = document.getElementById('entries');
+    const statusDiv = document.getElementById('status');
+
+    function renderEntry(snapshot) {
+      const { name, message, date } = snapshot.val();
+      const li = document.createElement('li');
+      li.textContent = `[${date}] ${name}: ${message}`;
+      entriesList.prepend(li);
+    }
+
+    // Listen for new entries
+    db.on('child_added', renderEntry, err => {
+      console.error(err);
+      statusDiv.textContent = "Failed to load messages.";
+    });
+
+    // Handle form submit
+    document.getElementById('guestbook-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = e.target.name.value.trim() || 'Anonymous';
+      const message = e.target.message.value.trim();
+      if (!message) {
+        statusDiv.textContent = 'You forgot something!';
+        return;
+      }
+      statusDiv.textContent = 'Saving…';
+      db.push({
+        name,
+        message,
+        date: new Date().toLocaleString()
+      })
+      .then(() => {
+        statusDiv.textContent = 'Message saved, THANK YOU!';
+        e.target.reset();
+      })
+      .catch(err => {
+        console.error(err);
+        statusDiv.textContent = 'Something went wrong. Please tell me about it...';
+      });
+    });
+  </script>
+</body>
+</html>
