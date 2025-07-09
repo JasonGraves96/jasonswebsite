@@ -57,13 +57,15 @@
 </head>
 <body>
   <h1>Leave a message?</h1>
-  <ul id="entries"></ul>
   <form id="guestbook-form">
     <input type="text" name="name" placeholder="Name" />
+    <input type="color" name="color" value="#00ff00" title="Select message color" />
     <textarea name="message" rows="2" placeholder="Your message here..."></textarea>
     <button type="submit">Submit</button>
   </form>
   <div id="status"></div>
+
+  <ul id="entries"></ul>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -88,9 +90,10 @@
     const statusDiv = document.getElementById('status');
 
     function renderEntry(snapshot) {
-      const { name, message, date } = snapshot.val();
+      const { name, message, date, color } = snapshot.val();
       const li = document.createElement('li');
       li.textContent = `[${date}] ${name}: ${message}`;
+      li.style.color = color;
       entriesList.prepend(li);
     }
 
@@ -105,6 +108,7 @@
       e.preventDefault();
       const name = e.target.name.value.trim() || 'Anonymous';
       const message = e.target.message.value.trim();
+      const color = e.target.color.value;
       if (!message) {
         statusDiv.textContent = 'You forgot something!';
         return;
@@ -113,6 +117,7 @@
       db.push({
         name,
         message,
+        color,
         date: new Date().toLocaleString()
       })
       .then(() => {
